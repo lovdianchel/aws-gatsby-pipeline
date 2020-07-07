@@ -34,14 +34,18 @@ test artifact:
   script:
   - dpl --provider=heroku --app=$APP_NAME --api-key=$HEROKU_API_KEY --skip_cleanup
 
-compile_staging:
+deploy staging:
   stage: deploy
   image: kroniak/ssh-client
-  script:
+  evironment:
+    name: staging
+    path: http://$AWS_SERVER
+  before_script:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - echo "$AWS_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
+  script:
     - scp -r ./public/ ubuntu@$AWS_SERVER:public/
-    - ssh -p22 ubuntu@$AWS_SERVER "ls ./public; pwd; uname -a"
+    - ssh -p22 ubuntu@$AWS_SERVER "ls; sudo mv public/ /var/www/html/"
