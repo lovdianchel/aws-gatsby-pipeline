@@ -44,4 +44,4 @@ compile_staging:
     - echo "$AWS_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - scp -r ./public/ ubuntu@$AWS_SERVER:public/
-    - ssh -p22 ubuntu@$AWS_SERVER "ls ./public"
+    - ssh -p22 ubuntu@$AWS_SERVER "ls ./public; pwd; uname -a"
