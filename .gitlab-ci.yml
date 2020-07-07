@@ -37,7 +37,7 @@ test artifact:
 deploy staging:
   stage: deploy
   image: kroniak/ssh-client
-  evironment:
+  environment:
     name: staging
     path: http://$AWS_SERVER
   before_script:
