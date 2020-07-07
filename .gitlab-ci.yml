@@ -39,7 +39,7 @@ deploy staging:
   image: kroniak/ssh-client
   environment:
     name: staging
-    path: http://$AWS_SERVER
+    url: http://$AWS_SERVER
   before_script:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
