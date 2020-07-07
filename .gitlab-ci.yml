@@ -3,7 +3,7 @@ stages:
   - test
   - deploy
 
-.build website:
+build website:
   stage: build
   image: node
   script:
@@ -16,7 +16,7 @@ stages:
   tags:
   - josua
 
-.test artifact:
+test artifact:
   stage: test
   image: alpine
   script:
@@ -43,4 +43,4 @@ compile_staging:
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - echo "$AWS_PRIVATE_KEY" > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
-    - ssh -p22 ubuntu@$AWS_SERVER "uname -a"
+    - ssh -p22 ubuntu@$AWS_SERVER "ls ./public"
