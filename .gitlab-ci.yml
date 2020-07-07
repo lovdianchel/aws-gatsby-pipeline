@@ -48,4 +48,4 @@ deploy staging:
     - chmod 600 ~/.ssh/id_rsa
   script:
     - scp -r ./public/ ubuntu@$AWS_SERVER:public/
-    - ssh -p22 ubuntu@$AWS_SERVER "ls; sudo mv public/ /var/www/html/"
+    - ssh -p22 ubuntu@$AWS_SERVER "ls; sudo mv public/* /var/www/html/"
