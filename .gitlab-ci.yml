@@ -1,0 +1,35 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build website:
+  stage: build
+  image: node
+  script:
+  - npm install
+  - npm install -g gatsby-cli
+  - gatsby build
+  artifacts:
+    paths:
+      - ./public
+  tags:
+  - josua
+
+test artifact:
+  stage: test
+  image: alpine
+  script:
+    - grep -q "Gatsby" ./public/index.html
+  tags:
+    - josua
+
+.deploy staging:
+  stage: deploy
+  image: ruby
+  before_script:
+  - apt-get update -qy
+  - apt-get install -y ruby-dev
+  - gem install dpl
+  script:
+  - dpl --provider=heroku --app=$APP_NAME --api-key=$HEROKU_API_KEY --skip_cleanup
